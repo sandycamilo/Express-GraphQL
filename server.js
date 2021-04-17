@@ -56,12 +56,12 @@ type Random {
 type Rolls {
   total: Int!
   sides: Int!
-  rolls: Int!
+  rolls: [Int!]!
 }
 
 type Query {
   getAbout: About
-    getmeal(time: String!): Meal
+  getmeal(time: String!): Meal
   
   getPet(id: Int!): Pet 
   allPets: [Pet!]!
@@ -76,6 +76,14 @@ type Query {
   getRandom(max: Int!): Random
 
   getRoll(sides: Int!, rolls: Int!): Rolls
+
+  getMoviesInRange(start: Int!, count: Int!): [Movie!]!
+
+  getPetCount: Int!
+
+  getMovieCount: Int!
+
+  getPetBySpecies(species: String!): [Pet!]!
 }
 `)
 
@@ -83,7 +91,7 @@ type Query {
 const petList = [
 	{ name: 'Fluffy', species: 'Dog' },
 	{ name: 'Sassy', species: 'Cat' },
-	{ name: 'Goldberg', species: 'Frog' }
+	{ name: 'Goldberg', species: 'Cat' }
 ]
 
 // Mock Movie datatbase:
@@ -122,7 +130,7 @@ const root = {
         return petList[0]
     },
     lastPet: () => {
-      return petList[2]
+      return petList[petList.length - 1]
     },
     getMovie: ({ id }) => {
       return movieList[id]
@@ -143,12 +151,28 @@ const root = {
         number: Math.floor(Math.random() * max).toString()
       }
     },
-    getRoll: ({sides, rolls}) => {
+    getRoll: ({ sides, rolls }) => {
+      const Rolls = []
+      for (let i=0; i < rolls; i+=1) {
+        Rolls.push(Math.floor(Math.random()* sides) +1)
+      }
       return {
         total: Rolls.reduce((a, b) => a + b, 0),
         sides: sides,
-        rolls: Rolls.push(rolls)
+        rolls: Rolls
       }
+    },
+    getPetCount: () => {
+      return petList.length
+    },
+    getMovieCount: () => {
+      return movieList.length
+    },
+    getMoviesInRange: ({ start, count }) => {
+     return movieList.slice(start, start + count)      
+    },
+    getPetBySpecies: ({ species }) => {
+      return petList.values(species)
     }
 }
 
