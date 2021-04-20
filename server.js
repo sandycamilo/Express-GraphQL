@@ -37,6 +37,7 @@ type Movie {
 
 type Mutation {
   addMovie(name: String!, genre: String!, rating: String!): Movie! 
+  updateMovie(id: Int!, name: String!, genre: String!, rating: String!): Movie
 }
 
 enum genreMovie {
@@ -181,6 +182,17 @@ const root = {
     addMovie: ({ name, genre, rating }) => {
       const movie = { name, genre, rating }
       movieList.push(movie)
+      return movie
+    }, 
+    updateMovie: ({ id, name, genre, rating }) => {
+      const movie = movieList[id] //is there anything at this id?
+      if (movie === undefined) { // if id does not exist return null
+        return null
+      }
+      // if name, genre or rating is not updated keep the original
+      movie.name = name || movie.name
+      movie.genre = genre || movie.genre
+      movie.rating = rating || movie.rating
       return movie
     }
 }
