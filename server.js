@@ -35,6 +35,10 @@ type Movie {
   rating: String!
 }
 
+type Mutation {
+  addMovie(name: String!, genre: String!, rating: String!): Movie! 
+}
+
 enum genreMovie {
   Horror
   Musical 
@@ -173,6 +177,11 @@ const root = {
     },
     getPetBySpecies: ({ species }) => {
       return petList.values(species)
+    },
+    addMovie: ({ name, genre, rating }) => {
+      const movie = { name, genre, rating }
+      movieList.push(movie)
+      return movie
     }
 }
 
