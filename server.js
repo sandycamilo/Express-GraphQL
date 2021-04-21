@@ -38,6 +38,7 @@ type Movie {
 type Mutation {
   addMovie(name: String!, genre: String!, rating: String!): Movie! 
   updateMovie(id: Int!, name: String!, genre: String!, rating: String!): Movie
+  deleteMovie(id: Int!): Movie
 }
 
 enum genreMovie {
@@ -193,6 +194,14 @@ const root = {
       movie.name = name || movie.name
       movie.genre = genre || movie.genre
       movie.rating = rating || movie.rating
+      return movie
+    }, 
+    deleteMovie: ({ id }) => {
+      const movie = movieList[id]
+      if (movie === undefined) {
+        return null 
+      }
+      movieList.pop(movie)
       return movie
     }
 }
