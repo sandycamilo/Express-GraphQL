@@ -12,30 +12,6 @@ Today we will look at a simple example implementing GraphQL with Express. This w
 
 <!-- > -->
 
-## Class Learning Objectives/Competencies
-
-1. Define a GraphQL Schema
-1. Use the GraphQL Schema Language
-1. Define a GraphQL Resolver
-1. Use GraphQL Queries
-1. Use GraphiQL
-
-<!-- > -->
-
-## Warm Up (5 mins)
-
-**Discuss:**
-
-GraphQL and SQL are both Query languages. How do they differ?
-
-<!-- > -->
-
-## Review 
-
-**Name three advantages of GraphQL 😎 over REST 😴**
-
-<!-- > -->
-
 ### GraphQL Queries
 
 **Use: https://graphql.org/swapi-graphql to answer the following questions...**
@@ -1029,35 +1005,60 @@ Returns: "Cat", "Dog", "Frog"
 
 <!-- > -->
 
-## After Class
-
-- Complete the challenges here. Submit them on GradeScope.
-- Watch https://www.howtographql.com videos up to the GraphQL Node Tutorial:
-  - Clients
-  - Servers
-  - More GraphQL Concepts
-  - Tooling and Ecosystem
-  - Security
-  - Common Questions
-- Submit your work to GradeScope.
+# GraphQL Mutations 
 
 <!-- > -->
-
-### Evaulate your Work
-
-1. Define a GraphQL Schema
-1. Define a GraphQL Resolver
-1. Use GraphQL Queries
-1. Use GraphiQL
-
-| -   | Does not meet expectations | Meets Expectations | Exceeds Expectations |
-|:---:|:---:|:---:|:---:|
-| GraphQL Schemas | Can't describe or explain GraphQL schemas | Can describe GraphQL schemas | Could teach the basic concepts of GraphQL schemas to someone else |
-| Writing Schemas | Can't write a GraphQL schema | Can write a GraphQL schema | Feel confident you could write a GraphQL schema for a variety of situations beyond the homework examples |
-| GraphQL Queries | Can't write a GraphQL Query | Could write a graphQL query | Feel confident you could write GraphQL queries beyond the solutions to the homework problems |
-| Resolvers | Can't explain resolvers, couldn't find them in your code | Could explain how the resolver works in the sample code from the lesson | Could expand on the resolvers from this lesson adding more use cases |
-
+## Mutation Queries
 <!-- > -->
+
+### Creating a new item
+
+```
+mutation {
+  addMovie(name:"mulan", genre:"action", rating:"9/10") {
+    name
+    genre
+    rating
+  }
+}
+
+```
+
+### Reading an item from your list
+
+```
+query {
+  allMovies {
+    name
+    genre
+    rating
+  }
+}
+```
+
+### Updating an item
+
+```
+mutation {
+  updateMovie(id: 1, name:"mulan", genre:"animation", rating:"10/10") {
+    name
+    genre
+    rating
+  }
+}
+```
+
+### Deleting an item
+
+```
+mutation {
+  deleteMovie(id: 3) {
+    name
+    genre
+    rating
+  }
+}
+```
 
 ## Resources
 
@@ -1065,30 +1066,3 @@ Returns: "Cat", "Dog", "Frog"
 - https://medium.com/codingthesmartway-com-blog/creating-a-graphql-server-with-node-js-and-express-f6dddc5320e1
 
 
-<!-- 
-
-Pop Quiz - After Break 
-
-Write a schema for these types
-
-
-- Kaiju type this is a gian monster like Godzilla
-- City type
-- Monster battle type should
-
-- Card type for a playing card
-- Deck type for a deck of cards
-- Hand type for a hand of cards
-- Discard pile type
-
-- Image type
-- Location type
-- Image type needs a location
-- User Type
-- User type needs a list of images
-
-- Write a location type?
-- Write walk type needs to map out a sequence of locations
-- Write a query type for a a walk
-
--->
