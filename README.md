@@ -1008,6 +1008,85 @@ Returns: "Cat", "Dog", "Frog"
 # GraphQL Mutations 
 
 <!-- > -->
+
+## Mutations
+
+<!-- > -->
+
+So far you've been using queries to get things from your GraphQL server. This is like a GET request with a REST 😴 server. 
+
+**Mutations** are used to make changes at your GraphQL server. This is like a POST, PUT, or DELETE request with a REST server.
+
+<!-- > -->
+
+Mutations should probably have a name that describes what they do: 
+
+```python
+newUser
+createUser
+makeUserAccount
+addUser
+```
+
+<!-- > -->
+
+Define a mutation in your schema with type Mutation: 
+
+```python
+# Schema
+type Mutation {
+	...
+}
+```
+
+<small>starts with `type Mutation`</small>
+
+<!-- > -->
+
+Usually a Mutation will take some parameters and resolve to a type. For example you might supply a username and password and resolve/return a User type. You might provide a url and description and Resolve to a Post type. 
+
+<!-- > -->
+
+Here is an example in code.
+
+```python
+# Schema
+type Mutation {
+	createUser(name: String!): User!
+	post(url: String!, description: String!): Link!
+}
+```
+
+<small>Mutations often return the thing they create, User, or Link in this example.</small>
+
+<!-- > -->
+
+When making a mutation **query** you start with the word "mutation"
+
+```python
+# Query 
+mutation {
+	createUser(name: "Jo") {
+		name
+		id
+	}
+}
+```
+
+<!-- > -->
+
+Note! Queries start with the key word Query. But we've been omitting it. 
+
+```python
+# Query
+query {
+	getUsers {
+		name
+	}
+}
+```
+
+<!-- > -->
 ## Mutation Queries
 <!-- > -->
 
